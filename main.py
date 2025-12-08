@@ -1,7 +1,11 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
+from typing import Annotated
 from pydantic import EmailStr, BaseModel
+from items_views import router as items_router
+
 
 app = FastAPI()
+app.include_router(items_router)
 
 
 class CreateUser(BaseModel):
@@ -30,27 +34,4 @@ def create_user(user: CreateUser):
 def calc_add(a: int, b: int):
     return {
         "result": a + b 
-    }
-
-
-@app.get("/items/")
-def list_items():
-    return [
-        {"id": 1, "name": "Item 1"},
-        {"id": 2, "name": "Item 2"},
-    ]
-
-
-@app.get("/item/latest/")
-def get_latest_item():
-    return {
-        "id": 2,
-        "name": "Item 2",
-    }
-
-
-@app.get("/items/{item_id}")
-def get_item(item_id: int):
-    return {
-        "id": item_id,
     }
