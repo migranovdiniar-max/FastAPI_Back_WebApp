@@ -4,6 +4,7 @@ from typing import Annotated
 
 router = APIRouter(
     prefix="/items",
+    tags=["items"],
 )
 
 @router.get("/")
